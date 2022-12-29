@@ -7,14 +7,13 @@ from colorama import init, Fore
 from threading import Thread, Lock
 from queue import Queue
 
-# We will use colorama here just for printing in green colors whenever a port is open, and gray when it is closed
+# We will print green colors whenever a port is open and gray when it is closed
 init()
 GREEN = Fore.GREEN
 RESET = Fore.RESET
 GRAY = Fore.LIGHTBLACK_EX
 
-
-# number of threads, feel free to tune this parameter as you wish
+# number of threads
 N_THREADS = 200
 
 # thread queue
@@ -22,9 +21,6 @@ q = Queue()
 print_lock = Lock()
 
 def port_scan(port):
-    """
-    Scan a port on the global variable `host`
-    """
     try:
         s = socket.socket()
         s.connect((host, port))
@@ -73,7 +69,7 @@ def main(host, ports):
 
 
 if __name__ == "__main__":
-    # parse some parameters passed
+    # parse parameters
     parser = argparse.ArgumentParser(description="Simple port scanner")
     parser.add_argument("host", help="Host to scan.")
     parser.add_argument("--ports", "-p", dest="port_range", default="1-65535", help="Port range to scan, default is 1-65535 (all ports)")
